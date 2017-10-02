@@ -12,6 +12,8 @@
 		547CD7711F66B1A400BFF499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 547CD76F1F66B1A400BFF499 /* Main.storyboard */; };
 		547CD7731F66B1A400BFF499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 547CD7721F66B1A400BFF499 /* Assets.xcassets */; };
 		547CD7761F66B1A400BFF499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 547CD7741F66B1A400BFF499 /* LaunchScreen.storyboard */; };
+		54E17AE81F826A4B0017AC01 /* messageBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E17AE61F826A4B0017AC01 /* messageBlock.png */; };
+		54E17AE91F826A4B0017AC01 /* messageBlock2.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E17AE71F826A4B0017AC01 /* messageBlock2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		547CD7721F66B1A400BFF499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		547CD7751F66B1A400BFF499 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		547CD7771F66B1A400BFF499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54E17AE61F826A4B0017AC01 /* messageBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messageBlock.png; sourceTree = "<group>"; };
+		54E17AE71F826A4B0017AC01 /* messageBlock2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messageBlock2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				547CD76B1F66B1A400BFF499 /* AppDelegate.swift */,
 				547CD76D1F66B1A400BFF499 /* ViewController.swift */,
 				547CD76F1F66B1A400BFF499 /* Main.storyboard */,
+				54E17AE61F826A4B0017AC01 /* messageBlock.png */,
+				54E17AE71F826A4B0017AC01 /* messageBlock2.png */,
 				547CD7721F66B1A400BFF499 /* Assets.xcassets */,
 				547CD7741F66B1A400BFF499 /* LaunchScreen.storyboard */,
 				547CD7771F66B1A400BFF499 /* Info.plist */,
@@ -126,7 +132,9 @@
 			files = (
 				547CD7761F66B1A400BFF499 /* LaunchScreen.storyboard in Resources */,
 				547CD7731F66B1A400BFF499 /* Assets.xcassets in Resources */,
+				54E17AE91F826A4B0017AC01 /* messageBlock2.png in Resources */,
 				547CD7711F66B1A400BFF499 /* Main.storyboard in Resources */,
+				54E17AE81F826A4B0017AC01 /* messageBlock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +310,7 @@
 				547CD77C1F66B1A400BFF499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
