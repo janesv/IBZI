@@ -21,60 +21,58 @@ class ViewController: UIViewController {
     private var arrayOfSymbols = [String]()
     private var arrayOfCharacters = [String]()
     
-    private func check () -> Bool {
+    private func check () -> Bool { // функция проверки вводимых данных
         
         if sizeOfBlockField.hasText {
             for i in sizeOfBlockField.text!.characters {
-                if "0"..."9" ~= i {
+                if "0"..."9" ~= i { // проверка на вводимость одних только чисел
                         print("Size of block has been entered succesfully")
                     } else {
+                        //error
                         print("Error: Only digits should be there!")
                         return false
                     }
             }
         
-            if Int(sizeOfBlockField.text!)! >= 1 && Int(sizeOfBlockField.text!)! <= String(textField.text!).characters.count {
+            if Int(sizeOfBlockField.text!)! >= 1 && Int(sizeOfBlockField.text!)! <= String(textField.text!).characters.count { // размер блока не должен превышать размер сообщения
                 sizeOfBlock = Int(sizeOfBlockField.text!)!
             } else {
+                //error
                 print("Error: < 1 or > size of text")
                 return false
             }
         
         } else {
-                //error
-                print("Error: Size of block field is empty!")
-                return false
+            //error
+            print("Error: Size of block field is empty!")
+            return false
         }
         
         if textField.hasText {
-            print("Input text has been entered succesfully")
-            
             for character in String(textField.text!).characters {
                 arrayOfCharacters.append(String(character))
             }
-            
-            if  arrayOfCharacters.count % sizeOfBlock  ==  0 {
+            if  arrayOfCharacters.count % sizeOfBlock  ==  0 { // если сообщение можно разбить на блоки заданного размера без остатка
                 print("Size is okay")
             } else {
-                
-                while arrayOfCharacters.count % sizeOfBlock  !=  0 {
+                while arrayOfCharacters.count % sizeOfBlock  !=  0 { // если нет, то добавляем "_" пока не будет выполнено условие
                     arrayOfCharacters.append(String("_"))
                 }
                 print(arrayOfCharacters)
             }
+            print("Input text has been entered succesfully")
         } else {
-            //exception
+            //error
             print("Error: Text field is empty!")
             return false
         }
         
         if orderField.hasText {
-            arrayOfSymbols = []
-            
             for i in orderField.text!.components(separatedBy: " ") {
-                if "0"..."9" ~= i && arrayOfSymbols.contains(i) == false && Int(i)! > 0 {
+                if "0"..."9" ~= i && arrayOfSymbols.contains(i) == false && Int(i)! > 0 { // проверка введенного порядка на вводимость одних только чисел, а так же на повторяемость
                     arrayOfSymbols.append(i)
                 } else {
+                    // error
                     print("Error: повторения")
                     return false
                 }
@@ -83,10 +81,12 @@ class ViewController: UIViewController {
             if arrayOfSymbols.count == sizeOfBlock && Int(arrayOfSymbols.max()!)! <= sizeOfBlock {
                 print("Everything is okay")
             } else {
+                // error
                 print("Error: Array of symbols has been entered with mistakes!")
                 return false
             }
         } else {
+            // error
             print("Error: Order field is empty!")
             return false
         }
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
         return true
     }
     
-    private func encryptedFunction(order: [Int], fragment: [String]) -> String {
+    private func encryptedFunction(order: [Int], fragment: [String]) -> String { // расшифровка / шифровка заданного фрагмента
         var result = ""
         for i in 0...sizeOfBlock - 1 {
             result += fragment[order[i] - 1]
@@ -102,21 +102,21 @@ class ViewController: UIViewController {
         return result
     }
     
-    private func encryptionOfTheMessage() -> String {
+    private func encryptionOfTheMessage() -> String { // расшифровка / шифровка сообщения
         var resultText = ""
         var i = 0
 
         repeat {
             var fragment = [String]()
             
-            if i + sizeOfBlock <= arrayOfCharacters.count {
+            if i + sizeOfBlock <= arrayOfCharacters.count { // разбиение на фрагмент и посимвольное добавление в массив
                 for j in 0...sizeOfBlock - 1 {
                     let index = arrayOfCharacters.index(after: j + i) - 1
                     print(index)
                     fragment.append(arrayOfCharacters[index])
                 }
                 i += sizeOfBlock
-            } else {
+            } else { // если этот фрагмент является последним
                 for j in i...arrayOfCharacters.count - 1 {
                     let index = arrayOfCharacters.index(after: j + i) - 1
                     print(index)
@@ -126,44 +126,46 @@ class ViewController: UIViewController {
             }
             
             print("res:", fragment)
-            let resultMessage = encryptedFunction(order: arrayOfSymbols.flatMap({Int($0)}), fragment: fragment)
-            print("Decrypted message: ", resultMessage)
-            resultText += resultMessage
+            // расшифровка / шифровка фрагмента:
+            let fragmentOfMessage = encryptedFunction(order: arrayOfSymbols.flatMap({Int($0)}), fragment: fragment)
+            print("Result message: ", fragmentOfMessage)
+            resultText += fragmentOfMessage // добавление очередного фрагмента к результату
             
         } while i < arrayOfCharacters.count
         
         return resultText
     }
     
-    @IBAction private func encryptionButton(_ sender: UIButton) {
+    @IBAction private func encryptionButton(_ sender: UIButton) { // шифровка сообщения
         sizeOfBlock = 0
         arrayOfCharacters = []
         arrayOfSymbols = []
 
         if check() {
-            let resultText = encryptionOfTheMessage()
+            let resultText = encryptionOfTheMessage() // шифруем заданное сообщение
             print(resultText)
             encryptedMessageLabel.text = resultText
         }
     }
    
-    @IBAction func decryptionButton(_ sender: UIButton) {
-        sizeOfBlock = 0
-        arrayOfCharacters = []
-        arrayOfSymbols = []
+    @IBAction func decryptionButton(_ sender: UIButton) { // расшифровка сообщения
+        arrayOfCharacters = [] // обнуляем массив для последующего хранения данных
         
-        if textField.hasText {
+        if (encryptedMessageLabel.text?.isEmpty)! == false { // если поле с зашифрованным сообщением не пусто
+            for character in String(encryptedMessageLabel.text!).characters { // добавляем символы шифра в массив
+                arrayOfCharacters.append(String(character))
+            }
             print("Input text has been entered succesfully")
-            if  String(textField.text!).characters.count % Int(sizeOfBlockField.text!)!  ==  0 {
+            if  String(encryptedMessageLabel.text!).characters.count % Int(sizeOfBlockField.text!)!  ==  0 { // если шифр можно разбить на блоки заданного размера без остатка
                 print("Size is okay")
-                if check() {
-                    let resultText = encryptionOfTheMessage()
-                    print(resultText)
-                    decryptedMessageLabel.text = resultText
-                }
-            } else {
-                decryptedMessageLabel.text = "Error: Decryption is impossible in this case!"
-                print("Error: Decryption is impossible in this case")
+
+                let resultText = encryptionOfTheMessage() // расшифровываем сообщение
+                print("Result of decryption: ", resultText)
+                decryptedMessageLabel.text = resultText
+
+            } else { // если шифр невозможно разбить на блоки заданного размера без остатка
+                    decryptedMessageLabel.text = "Error: Decryption is impossible in this case!"
+                    print("Error: Decryption is impossible in this case")
                 }
                 print(arrayOfCharacters)
         } else {
@@ -181,6 +183,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
+
