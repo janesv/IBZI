@@ -53,11 +53,14 @@ class ViewController: UIViewController {
             for character in String(textField.text!).characters {
                 arrayOfCharacters.append(String(character))
             }
-            if  arrayOfCharacters.count % sizeOfBlock  ==  0 { // если сообщение можно разбить на блоки заданного размера без остатка
+            
+            // если сообщение можно разбить на блоки заданного размера без остатка
+            if  arrayOfCharacters.count % sizeOfBlock  ==  0 { 
                 print("Size is okay")
             } else {
-                while arrayOfCharacters.count % sizeOfBlock  !=  0 { // если нет, то добавляем "_" пока не будет выполнено условие
-                    arrayOfCharacters.append(String("_"))
+                // если нет, то добавляем " " пока не будет выполнено условие
+                while arrayOfCharacters.count % sizeOfBlock  !=  0 { 
+                    arrayOfCharacters.append(String(" "))
                 }
                 print(arrayOfCharacters)
             }
